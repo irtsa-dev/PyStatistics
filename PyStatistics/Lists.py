@@ -87,3 +87,21 @@ def Outliers(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[W
     lowerBound = QuartileFirst(Data) - (1.5 * iqr)
 
     return [i for i in Data if i > upperBound or i < lowerBound]
+
+
+
+def Variance(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    mean = Mean(Data)
+    return sum([((i - mean) ** 2) for i in Data]) / (len(Data) - 1)
+
+
+
+def StandardDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    variance = Variance(Data)
+    return variance ** 0.5
+
+
+
+def MeanAbsoluteDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    mean = Mean(Data)
+    return sum([abs(i - mean) for i in Data]) / len(Data)
