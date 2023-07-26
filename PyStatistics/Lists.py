@@ -92,16 +92,16 @@ def Outliers(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[W
 
 def Variance(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
     mean = Mean(Data)
-    return sum([((i - mean) ** 2) for i in Data]) / (len(Data) - 1)
+    return round((sum([((i - mean) ** 2) for i in Data]) / (len(Data) - 1)), 2)
 
 
 
 def StandardDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
     variance = Variance(Data)
-    return variance ** 0.5
+    return round((variance ** 0.5), 2)
 
 
 
 def MeanAbsoluteDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
     mean = Mean(Data)
-    return sum([abs(i - mean) for i in Data]) / len(Data)
+    return round((sum([abs(i - mean) for i in Data]) / len(Data)), 2)
