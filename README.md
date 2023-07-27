@@ -375,7 +375,7 @@ Outliers(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[Weigh
 AverageIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
 # Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AI (average increase) of the list (or tuple).
 
-def PointInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+PointInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
 # Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the mean of each number and the number after.
 ```
 ```py
