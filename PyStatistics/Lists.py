@@ -91,17 +91,47 @@ def Outliers(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[W
 
 
 def Variance(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    Data = __ConvertData(Data)
     mean = Mean(Data)
     return round((sum([((i - mean) ** 2) for i in Data]) / (len(Data) - 1)), 2)
 
 
 
 def StandardDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    Data = __ConvertData(Data)
     variance = Variance(Data)
     return round((variance ** 0.5), 2)
 
 
 
 def MeanAbsoluteDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    Data = __ConvertData(Data)
     mean = Mean(Data)
     return sum([abs(i - mean) for i in Data]) / len(Data)
+
+
+
+def AverageIncrease(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    Data = __ConvertData(Data)
+    Data = [(Data[i + 1] - Data[i]) for i in range(len(Data) - 1)]
+    return round((sum(Data) / len(Data)), 2)
+
+
+
+def AverageIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list:
+    Data = __ConvertData(Data)
+    
+    ai = AverageIncrease(Data) / 2.0
+
+    Data = [[Data[i], Data[i] + ai] for i in range(len(Data))]
+    return [float(i) for e in Data for i in e][:-1]
+
+
+
+def PointInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list:
+    Data = __ConvertData(Data) + [0]
+
+    Differences = [((Data[i + 1] - Data[i]) / 2) for i in range(len(Data) - 1)]
+    
+    Data = [[Data[i], Data[i] + Differences[i]] for i in range(len(Differences))]
+    return [round(float(i), 2) for e in Data for i in e][:-1]
