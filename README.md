@@ -372,6 +372,15 @@ Range(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[Weighted
 Outliers(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
 # Returns the outliers (any number falling outside of a specific range determined by the different of the Q1 and 1.5 times the IQR and the sum of Q3 and 1.5 times the IQR) of a given list (or tuple) of numbers.
 
+Variance(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
+# Returns the variance (the spread between the numbers) of a given list (or tuple) of numbers.
+
+StandardDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
+# Returns the SD (standard deviation) (the amount of variation relative to the mean) of a given list (or tuple) of numbers.
+
+MeanAbsoluteDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
+# Returns the MAD (mean absolute deviation) (the average distance between each number and the mean) of a given list (or tuple) of numbers.
+
 AverageIncrease(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
 # Returns the AI (average increase) (the average amount each value is increased) of a given list (or tuple) of numbers.
 
