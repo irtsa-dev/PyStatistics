@@ -375,11 +375,20 @@ Outliers(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[Weigh
 AverageIncrease(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
 # Returns the AI (average increase) (the average amount each value is increased) of a given list (or tuple) of numbers.
 
+AverageMultiplication(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
+# Returns the AM (average multiplication) (the average amount each value is multiplied) of a given list (or tuple) of numbers.
+
 AverageIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
 # Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AI (average increase) of the list (or tuple).
 
-PointInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+AverageMultiplicationInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AM (average multiplication) of the list (or tuple).
+
+PointIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
 # Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the mean of each number and the number after.
+
+PointMultiplicationInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AM (average multiplication) of each number and the number after.
 ```
 ```py
 Data = [43, 321, 912, 213, 213, 9, 34843]
