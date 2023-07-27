@@ -380,6 +380,24 @@ StandardDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tu
 
 MeanAbsoluteDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
 # Returns the MAD (mean absolute deviation) (the average distance between each number and the mean) of a given list (or tuple) of numbers.
+
+AverageIncrease(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
+# Returns the AI (average increase) (the average amount each value is increased) of a given list (or tuple) of numbers.
+
+AverageMultiplication(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float
+# Returns the AM (average multiplication) (the average amount each value is multiplied) of a given list (or tuple) of numbers.
+
+AverageIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AI (average increase) of the list (or tuple).
+
+AverageMultiplicationInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AM (average multiplication) of the list (or tuple).
+
+PointIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the mean of each number and the number after.
+
+PointMultiplicationInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AM (average multiplication) of each number and the number after.
 ```
 ```py
 Data = [43, 321, 912, 213, 213, 9, 34843]
@@ -417,6 +435,24 @@ print(StandardDeviation(Data))
 
 print(MeanAbsoluteDeviation(Data))
 # Result: 8463.14
+
+print(AverageIncrease(Data))
+# Result: 5800.0
+
+print(AverageMultiplication(Data))
+# Result: 647.17
+
+print(AverageIncreaseInterpolation(Data))
+# Result: [43.0, 2943.0, 321.0, 3221.0, 912.0, 3812.0, 213.0, 3113.0, 213.0, 3113.0, 9.0, 2909.0, 34843.0]
+
+print(AverageMultiplicationInterpolation(Data))
+# Result: [43.0, 13914.15, 321.0, 103870.78, 912.0, 295109.52, 213.0, 68923.6, 213.0, 68923.6, 9.0, 2912.26, 34843.0]
+
+print(PointIncreaseInterpolation(Data))
+# Result: [43.0, 182.0, 321.0, 616.5, 912.0, 562.5, 213.0, 213.0, 213.0, 111.0, 9.0, 17426.0, 34843.0]
+
+print(PointMultiplicationInterpolation(Data))
+# Result: [43.0, 160.5, 321.0, 456.0, 912.0, 106.5, 213.0, 106.5, 213.0, 4.5, 9.0, 17421.5, 34843.0]
 ```
 ​
 <br />
