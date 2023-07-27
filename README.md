@@ -427,7 +427,6 @@ print(Range(Data))
 print(Outliers(Data))
 # Result: [34843]
 
-
 print(Variance(Data))
 # Result: 170696185.67
 
