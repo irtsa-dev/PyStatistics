@@ -107,7 +107,7 @@ def StandardDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] 
 def MeanAbsoluteDeviation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
     Data = __ConvertData(Data)
     mean = Mean(Data)
-    return sum([abs(i - mean) for i in Data]) / len(Data)
+    return round((sum([abs(i - mean) for i in Data]) / len(Data)), 2)
 
 
 
