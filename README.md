@@ -371,6 +371,12 @@ Range(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[Weighted
 
 Outliers(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
 # Returns the outliers (any number falling outside of a specific range determined by the different of the Q1 and 1.5 times the IQR and the sum of Q3 and 1.5 times the IQR) of a given list (or tuple) of numbers.
+
+AverageIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the AI (average increase) of the list (or tuple).
+
+def PointInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list
+# Returns an interpolation (estimating other potential values of a list of numbers) of a given list (or tuple) of numbers by using the mean of each number and the number after.
 ```
 ```py
 Data = [43, 321, 912, 213, 213, 9, 34843]
