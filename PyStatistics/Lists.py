@@ -118,6 +118,13 @@ def AverageIncrease(Data: list[WeightedNumber, Fraction, Decimal, int, float] | 
 
 
 
+def AverageMultiplication(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> float:
+    Data = __ConvertData(Data)
+    Data = [(Data[i + 1] / Data[i]) for i in range(len(Data) - 1)]
+    return round((sum(Data) / len(Data)), 2)
+
+
+
 def AverageIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list:
     Data = __ConvertData(Data)
     
@@ -128,10 +135,29 @@ def AverageIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, i
 
 
 
-def PointInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list:
+def AverageMultiplicationInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list:
+    Data = __ConvertData(Data)
+
+    am = AverageMultiplication(Data) / 2.0
+    Data = [[Data[i], Data[i] * am] for i in range(len(Data))]
+    return [round(float(i), 2) for e in Data for i in e][:-1]
+
+
+
+def PointIncreaseInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list:
     Data = __ConvertData(Data) + [0]
 
     Differences = [((Data[i + 1] - Data[i]) / 2) for i in range(len(Data) - 1)]
     
     Data = [[Data[i], Data[i] + Differences[i]] for i in range(len(Differences))]
+    return [round(float(i), 2) for e in Data for i in e][:-1]
+
+
+
+def PointMultiplicationInterpolation(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[WeightedNumber, Fraction, Decimal, int, float]) -> list:
+    Data = __ConvertData(Data) + [0]
+
+    Multipliers = [((Data[i + 1] / Data[i]) / 2) for i in range(len(Data) - 1)]
+
+    Data = [[Data[i], Data[i] * Multipliers[i]] for i in range(len(Multipliers))]
     return [round(float(i), 2) for e in Data for i in e][:-1]
