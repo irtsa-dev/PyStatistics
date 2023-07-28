@@ -474,14 +474,3 @@ print(PointMultiplicationInterpolation(Data))
 <br />
 # Additional Notes
 Accuracy may be lost at times when converting between number formats.
-
-​
-<br />
-<br />
-​<br />
-<br />
-<br />
-# Installation
-```sh
-git clone https://github.com/IrtsaDevelopment/PyStatistics.git
-```
