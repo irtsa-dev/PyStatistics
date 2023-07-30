@@ -488,3 +488,124 @@ class Decimal:
     def __rtruediv__(self, other): return self.__truediv__(other)
 
     def __repr__(self): return str(self.integeral) + '.' + str(self.fractional)
+
+
+
+
+class Matrix:
+    @staticmethod
+    def __convertData(Data):
+        return [i.floatForm if type(i) in [WeightedNumber, Fraction] else i for i in Data]
+    
+
+    @staticmethod
+    def __checkIfValid(value):
+        valueLengths = [len(i) for i in value]
+        return all([type(str) not in i for i in value]) and len(list({a : valueLengths.count(a) for a in valueLengths}.keys())) == 1
+    
+
+    @staticmethod
+    def __multiplyLists(valueA, valueB):
+        return sum([(valueA[i] * valueB[i]) for i in range(len(valueA))])
+    
+
+    @staticmethod
+    def __invertList(value):
+        return [[item[i] for item in value] for i in range(len(value[0]))]
+    
+
+    #setup for later
+    #@staticmethod
+    #def __findInverse(matrix): pass
+
+    
+    
+    def __init__(self, *args: list):
+        matrix = [self.__convertData(i) for i in args]
+
+        if self.__checkIfValid(matrix):
+            self.matrix = matrix
+            self.rowAmount = len(matrix)
+            self.columnAmount = len(matrix[0])
+
+            self.__valid = True
+        
+        else: self.__valid = False
+    
+
+    @property
+    def stringForm(self) -> str:
+        return '\n'.join([' '.join([str(a) for a in i]) for i in self.matrix])
+    
+
+
+    def __ConvertToMatrix(self, other):
+        if type(other) in [WeightedNumber, Fraction, Decimal]: other = other.floatForm
+        if type(other) in [int, float]: return Matrix(*[[other for a in range(self.columnAmount)] for b in range(self.rowAmount)])
+    
+
+
+    def __add(self, other):
+        return Matrix(*[[self.matrix[b][a] + other.matrix[b][a] for a in range(len(self.matrix[b]))] for b in range(len(self.matrix))])
+    
+
+
+    def __sub(self, other):
+        return Matrix(*[[self.matrix[b][a] - other.matrix[b][a] for a in range(len(self.matrix[b]))] for b in range(len(self.matrix))])
+    
+
+
+    def __add__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]:
+            other = self.__ConvertToMatrix(other)
+            return self.__add(other)
+
+        elif type(other) == Matrix:
+            if self.rowAmount != other.rowAmount or self.columnAmount != other.columnAmount: return None
+            return self.__add(other)
+    
+
+
+    def __sub__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]:
+            other = self.__ConvertToMatrix(other)
+            return self.__sub(other)
+
+        elif type(other) == Matrix:
+            if self.rowAmount != other.rowAmount or self.columnAmount != other.columnAmount: return None
+            return self.__sub(other)
+    
+
+
+    def __mul__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]:
+            other = self.__ConvertToMatrix(other)
+            return Matrix(*[[self.matrix[b][a] * other.matrix[b][a] for a in range(len(self.matrix[b]))] for b in range(len(self.matrix))])
+
+        elif type(other) == Matrix:
+            if self.rowAmount != other.columnAmount: return None
+            other = Matrix(*self.__invertList(other.matrix))
+
+            NewMatrix = [[sum([(self.matrix[a][b] * other.matrix[c][b]) for b in range(len(self.matrix[a]))]) for a in range(len(self.matrix))] for c in range(len(other.matrix))]
+            return Matrix(*self.__invertList(NewMatrix))
+    
+
+
+    def __iadd__(self, other): return self.__add__(other)
+    
+    def __isub__(self, other): return self.__sub__(other)
+    
+    def __rmul__(self, other): return self.__mul__(other)
+      
+    def __imul__(self, other): return self.__mul__(other)
+    
+    def __itruediv__(self, other): return self.__truediv__(other)
+
+    def __rtruediv__(self, other): return self.__truediv__(other)
+
+    def __repr__(self): return self.stringForm
+            
+
+
+    def __repr__(self):
+        return self.stringForm
