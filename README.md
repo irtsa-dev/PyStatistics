@@ -1,4 +1,4 @@
-![PyPI](https://img.shields.io/pypi/v/idev-pystatistics)
+![PyPI](https://img.shields.io/pypi/v/idev-pystatistics) ![Python](https://img.shields.io/pypi/pyversions/idev-pystatistics)
 # **PyStatistics**
 A [**python**](https://www.python.org) collection of classes and functions to help with numbers along with collections of numbers i.e., **statistics**.
 <br />
