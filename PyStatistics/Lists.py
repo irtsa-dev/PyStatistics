@@ -38,7 +38,7 @@ def Median(Data: list[WeightedNumber, Fraction, Decimal, int, float] | tuple[Wei
     Data = sorted(Data)
     x = int(len(Data) / 2)
 
-    if len(Data) % 2 == 0: return round(((Data[x] + Data[x + 1]) / 2.0), 2)
+    if len(Data) % 2 == 0: return round(((Data[x - 1] + Data[x]) / 2.0), 2)
     return Data[x]
 
 
