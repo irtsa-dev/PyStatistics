@@ -505,18 +505,68 @@ class Matrix:
     
 
     @staticmethod
-    def __multiplyLists(valueA, valueB):
-        return sum([(valueA[i] * valueB[i]) for i in range(len(valueA))])
-    
-
-    @staticmethod
     def __invertList(value):
         return [[item[i] for item in value] for i in range(len(value[0]))]
     
 
-    #setup for later
-    #@staticmethod
-    #def __findInverse(matrix): pass
+    @staticmethod
+    def __findCofactor(matrix):
+    square = matrix.rowAmount - 2
+    Minors = []
+
+    for a in range(square):
+        for b in range(square):
+            i = a + (b * matrix.rowAmount)
+                    
+            dpMatrices = [
+                [(i + 1 + matrix.rowAmount), (i + 2 + matrix.rowAmount), (i + 1 + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
+                [(i + matrix.rowAmount), (i - 1 + (2 * matrix.rowAmount)), (i + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
+                [(i + matrix.rowAmount), (i + 1 + matrix.rowAmount), (i + (2 * matrix.rowAmount)), (i + 1 + (2 * matrix.rowAmount))],
+                [(i + 1), (i + 2), (i + 1 + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],\
+                [i, (i + 2), (i + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
+                [i, (i + 1), (i + (2 * matrix.rowAmount)), (i + 1 + (2 * matrix.rowAmount))],
+                [(i + 1), (i + 2), (i + 1 + matrix.rowAmount), (i + 2 + matrix.rowAmount)],
+                [i, (i + 2), (i + matrix.rowAmount), (i + 2 + matrix.rowAmount)],
+                [i, (i + 1), (i + matrix.rowAmount), (i + 1 + matrix.rowAmount)]
+            ]
+
+            matrixRow = [item for row in matrix.matrix for item in row]
+
+            dpMatrices = [[matrixRow[item] for item in row] for row in dpMatrices]
+            dpMatrix = [(m[0] * m[3] - m[1] * m[2]) for m in dpMatrices]
+            dpMatrix = [(-1) ** (m) * dpMatrix[m] for m in range(len(dpMatrices))]
+            Minors.append(dpMatrix)
+    
+    Minors = [Minors[0][i:i+square+2] for i in range(0, len(Minors[0]), square + 2)]
+    input(Minors)
+    return Matrix(*Minors)
+
+
+    @staticmethod
+    def __findDeterminant(matrix):
+        square = matrix.rowAmount - 2
+        Determinants = []
+
+        for a in range(square):
+            for b in range(square):
+                i = a + (b * matrix.rowAmount)
+
+                LocalDeterminants = [
+                    [(i + 1 + matrix.rowAmount), (i + 2 + matrix.rowAmount), (i + 1 + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
+                    [(i + matrix.rowAmount), (i + 2 + matrix.rowAmount), (i + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
+                    [(i + matrix.rowAmount), (i + 1 + matrix.rowAmount), (i + (2 * matrix.rowAmount)), (i + 1 + (2 * matrix.rowAmount))]
+                ]
+
+                flatMatrix = [item for row in matrix.matrix for item in row]
+                LocalDeterminants = [[flatMatrix[m] for m in row] for row in LocalDeterminants]
+
+                matrixRow = [matrix.matrix[i + item] for item in range(3)]
+                LocalDeterminants = [(m[0] * m[3] - m[1] * m[2]) for m in LocalDeterminants]
+                LocalDeterminants = [(-1) ** item * matrixRow[0][item] * LocalDeterminants[item] for item in range(len(LocalDeterminants))]
+
+                Determinants.append(sum(LocalDeterminants))
+        
+        return sum(Determinants)
 
     
     
@@ -536,6 +586,30 @@ class Matrix:
     @property
     def stringForm(self) -> str:
         return '\n'.join([' '.join([str(a) for a in i]) for i in self.matrix])
+
+
+    
+    def __findInverse(self, matrix):
+        Minors = self.__findCofactor(matrix)
+        input(Minors)
+
+        determinant = self.__findDeterminant(matrix)
+        if determinant == 0: raise ValueError('Cannot find inverse with a determinant of 0.')
+
+        Adjoint = [[row[i] for row in Minors.matrix] for i in range(Minors.rowAmount)]
+        Inverse = [[i / determinant for i in row] for row in Adjoint]
+
+        return Matrix(*Inverse)
+
+
+
+    def __findSmallInverse(self, matrix):
+        matrix = matrix.matrix
+
+        determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+        if determinant == 0: raise ValueError('Cannot find inverse with a determinant of 0.')
+
+        return Matrix([matrix[0][0] / determinant, -1 * matrix[0][1] / determinant], [-1 * matrix[0][1] / determinant, matrix[1][1] / determinant])
     
 
 
@@ -588,6 +662,17 @@ class Matrix:
 
             NewMatrix = [[sum([(self.matrix[a][b] * other.matrix[c][b]) for b in range(len(self.matrix[a]))]) for a in range(len(self.matrix))] for c in range(len(other.matrix))]
             return Matrix(*self.__invertList(NewMatrix))
+
+
+
+    def __truediv__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]: other = self.__ConvertToMatrix(other)
+        if other.rowAmount != other.columnAmount: raise ValueError('Matrix must be square.')
+        if self.rowAmount != self.columnAmount: raise ValueError('Matrix must be square.')
+        if max(self.rowAmount, self.columnAmount, other.rowAmount, other.columnAmount) > 3: raise ValueError('Due to limitations, only 3x3 Matrices are allowed in division.')
+
+        if self.rowAmount < 3: return self.__mul__(self.__findSmallInverse(other))
+        return self.__mul__(self.__findInverse(other))
     
 
 
@@ -605,7 +690,4 @@ class Matrix:
 
     def __repr__(self): return self.stringForm
             
-
-
-    def __repr__(self):
-        return self.stringForm
+    def __repr__(self): return self.stringForm
