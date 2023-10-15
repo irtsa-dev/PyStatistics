@@ -689,5 +689,3 @@ class Matrix:
     def __rtruediv__(self, other): return self.__truediv__(other)
 
     def __repr__(self): return self.stringForm
-            
-    def __repr__(self): return self.stringForm
