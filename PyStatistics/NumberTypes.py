@@ -488,3 +488,203 @@ class Decimal:
     def __rtruediv__(self, other): return self.__truediv__(other)
 
     def __repr__(self): return str(self.integeral) + '.' + str(self.fractional)
+
+
+
+
+class Matrix:
+    @staticmethod
+    def __convertData(Data):
+        return [i.floatForm if type(i) in [WeightedNumber, Fraction] else i for i in Data]
+    
+
+    @staticmethod
+    def __checkIfValid(value):
+        valueLengths = [len(i) for i in value]
+        return all([type(str) not in i for i in value]) and len(list({a : valueLengths.count(a) for a in valueLengths}.keys())) == 1
+    
+
+    @staticmethod
+    def __invertList(value):
+        return [[item[i] for item in value] for i in range(len(value[0]))]
+    
+
+    @staticmethod
+    def __findCofactor(matrix):
+    square = matrix.dimensions[0] - 2
+    Minors = []
+
+    for a in range(square):
+        for b in range(square):
+            i = a + (b * matrix.dimensions[0])
+                    
+            dpMatrices = [
+                [(i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                [(i + matrix.dimensions[0]), (i - 1 + (2 * matrix.dimensions[0])), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                [(i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
+                [(i + 1), (i + 2), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],\
+                [i, (i + 2), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                [i, (i + 1), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
+                [(i + 1), (i + 2), (i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
+                [i, (i + 2), (i + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
+                [i, (i + 1), (i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0])]
+            ]
+
+            matrixRow = [item for row in matrix.matrix for item in row]
+
+            dpMatrices = [[matrixRow[item] for item in row] for row in dpMatrices]
+            dpMatrix = [(m[0] * m[3] - m[1] * m[2]) for m in dpMatrices]
+            dpMatrix = [(-1) ** (m) * dpMatrix[m] for m in range(len(dpMatrices))]
+            Minors.append(dpMatrix)
+    
+    Minors = [Minors[0][i:i+square+2] for i in range(0, len(Minors[0]), square + 2)]
+    input(Minors)
+    return Matrix(*Minors)
+
+
+    @staticmethod
+    def __findDeterminant(matrix):
+        square = matrix.dimensions[0] - 2
+        Determinants = []
+
+        for a in range(square):
+            for b in range(square):
+                i = a + (b * matrix.dimensions[0])
+
+                LocalDeterminants = [
+                    [(i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                    [(i + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                    [(i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))]
+                ]
+
+                flatMatrix = [item for row in matrix.matrix for item in row]
+                LocalDeterminants = [[flatMatrix[m] for m in row] for row in LocalDeterminants]
+
+                matrixRow = [matrix.matrix[i + item] for item in range(3)]
+                LocalDeterminants = [(m[0] * m[3] - m[1] * m[2]) for m in LocalDeterminants]
+                LocalDeterminants = [(-1) ** item * matrixRow[0][item] * LocalDeterminants[item] for item in range(len(LocalDeterminants))]
+
+                Determinants.append(sum(LocalDeterminants))
+        
+        return sum(Determinants)
+
+    
+    
+    def __init__(self, *args: list):
+        matrix = [self.__convertData(i) for i in args]
+
+        if self.__checkIfValid(matrix):
+            self.matrix = matrix
+            self.dimensions = tuple(len(matrix), len(matrix[0]))
+
+            self.__valid = True
+        
+        else: self.__valid = False
+    
+
+    @property
+    def stringForm(self) -> str:
+        return '\n'.join([' '.join([str(a) for a in i]) for i in self.matrix])
+
+
+    
+    def __findInverse(self, matrix):
+        Minors = self.__findCofactor(matrix)
+        input(Minors)
+
+        determinant = self.__findDeterminant(matrix)
+        if determinant == 0: raise ValueError('Cannot find inverse with a determinant of 0.')
+
+        Adjoint = [[row[i] for row in Minors.matrix] for i in range(Minors.dimensions[0])]
+        Inverse = [[i / determinant for i in row] for row in Adjoint]
+
+        return Matrix(*Inverse)
+
+
+
+    def __findSmallInverse(self, matrix):
+        matrix = matrix.matrix
+
+        determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+        if determinant == 0: raise ValueError('Cannot find inverse with a determinant of 0.')
+
+        return Matrix([matrix[0][0] / determinant, -1 * matrix[0][1] / determinant], [-1 * matrix[0][1] / determinant, matrix[1][1] / determinant])
+    
+
+
+    def __ConvertToMatrix(self, other):
+        if type(other) in [WeightedNumber, Fraction, Decimal]: other = other.floatForm
+        if type(other) in [int, float]: return Matrix(*[[other for a in range(self.dimensions[1])] for b in range(self.dimensions[0])])
+    
+
+
+    def __add(self, other):
+        return Matrix(*[[self.matrix[b][a] + other.matrix[b][a] for a in range(len(self.matrix[b]))] for b in range(len(self.matrix))])
+    
+
+
+    def __sub(self, other):
+        return Matrix(*[[self.matrix[b][a] - other.matrix[b][a] for a in range(len(self.matrix[b]))] for b in range(len(self.matrix))])
+    
+
+
+    def __add__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]:
+            other = self.__ConvertToMatrix(other)
+            return self.__add(other)
+
+        elif type(other) == Matrix:
+            if self.dimensions[0] != other.dimensions[0] or self.dimensions[1] != other.dimensions[1]: return None
+            return self.__add(other)
+    
+
+
+    def __sub__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]:
+            other = self.__ConvertToMatrix(other)
+            return self.__sub(other)
+
+        elif type(other) == Matrix:
+            if self.dimensions[0] != other.dimensions[0] or self.dimensions[1] != other.dimensions[1]: return None
+            return self.__sub(other)
+    
+
+
+    def __mul__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]:
+            other = self.__ConvertToMatrix(other)
+            return Matrix(*[[self.matrix[b][a] * other.matrix[b][a] for a in range(len(self.matrix[b]))] for b in range(len(self.matrix))])
+
+        elif type(other) == Matrix:
+            if self.dimensions[0] != other.dimensions[1]: return None
+            other = Matrix(*self.__invertList(other.matrix))
+
+            NewMatrix = [[sum([(self.matrix[a][b] * other.matrix[c][b]) for b in range(len(self.matrix[a]))]) for a in range(len(self.matrix))] for c in range(len(other.matrix))]
+            return Matrix(*self.__invertList(NewMatrix))
+
+
+
+    def __truediv__(self, other):
+        if type(other) in [int, float, Fraction, WeightedNumber, Decimal]: other = self.__ConvertToMatrix(other)
+        if other.dimensions[0] != other.dimensions[1]: raise ValueError('Matrix must be square.')
+        if self.dimensions[0] != self.dimensions[1]: raise ValueError('Matrix must be square.')
+        if max(self.dimensions[0], self.dimensions[1], other.dimensions[0], other.dimensions[1]) > 3: raise ValueError('Due to limitations, only 3x3 Matrices are allowed in division.')
+
+        if self.dimensions[0] < 3: return self.__mul__(self.__findSmallInverse(other))
+        return self.__mul__(self.__findInverse(other))
+    
+
+
+    def __iadd__(self, other): return self.__add__(other)
+    
+    def __isub__(self, other): return self.__sub__(other)
+    
+    def __rmul__(self, other): return self.__mul__(other)
+      
+    def __imul__(self, other): return self.__mul__(other)
+    
+    def __itruediv__(self, other): return self.__truediv__(other)
+
+    def __rtruediv__(self, other): return self.__truediv__(other)
+
+    def __repr__(self): return self.stringForm

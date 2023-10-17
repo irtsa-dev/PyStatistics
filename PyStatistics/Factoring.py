@@ -32,12 +32,8 @@ def PrimeFactors(number: int) -> list:
     PrimeFacts = [1]
     while not checkIfPrime(number):
         number = int(number / PrimeFacts[-1])
-        Facts = [int(i) for i in Factors(number)]
-
-        for fact in Facts:
-            if checkIfPrime(fact):
-                PrimeFacts.append(fact)
-                break
+        Facts = [int(i) for i in Factors(number) if checkIfPrime(i)]
+        PrimeFacts.append(Facts[0])
     
     return PrimeFacts[1:]
 
@@ -45,7 +41,7 @@ def PrimeFactors(number: int) -> list:
 
 def GreatestCommonFactor(Data: list[int] | tuple[int]) -> int:
     Data = [Factors(i) for i in Data]
-    FactorAmounts = [len(i) for i in Data]
+    FactorAmounts = list(map(len, Data))
 
     Smallest = Data[FactorAmounts.index(min(FactorAmounts))]
     Data.remove(Smallest)
