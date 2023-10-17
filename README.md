@@ -166,11 +166,10 @@ print(matrix)
 The **Matrix** class also has the following properties:
 ```py
 matrix.matrix
-# Corresponding number and weight of the number in their given form.
+# A list containing the rows of the matrix (list of lists).
 
-matrix.rowAmount
-matrix.columnAmount
-# Will return the number of rows / columns in the matrix.
+matrix.dimensions
+# Will return a tuple of the dimensions of the matrix (rows, columns).
 ```
 <br />
 <br />
