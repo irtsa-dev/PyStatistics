@@ -511,23 +511,23 @@ class Matrix:
 
     @staticmethod
     def __findCofactor(matrix):
-    square = matrix.rowAmount - 2
+    square = matrix.dimensions[0] - 2
     Minors = []
 
     for a in range(square):
         for b in range(square):
-            i = a + (b * matrix.rowAmount)
+            i = a + (b * matrix.dimensions[0])
                     
             dpMatrices = [
-                [(i + 1 + matrix.rowAmount), (i + 2 + matrix.rowAmount), (i + 1 + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
-                [(i + matrix.rowAmount), (i - 1 + (2 * matrix.rowAmount)), (i + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
-                [(i + matrix.rowAmount), (i + 1 + matrix.rowAmount), (i + (2 * matrix.rowAmount)), (i + 1 + (2 * matrix.rowAmount))],
-                [(i + 1), (i + 2), (i + 1 + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],\
-                [i, (i + 2), (i + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
-                [i, (i + 1), (i + (2 * matrix.rowAmount)), (i + 1 + (2 * matrix.rowAmount))],
-                [(i + 1), (i + 2), (i + 1 + matrix.rowAmount), (i + 2 + matrix.rowAmount)],
-                [i, (i + 2), (i + matrix.rowAmount), (i + 2 + matrix.rowAmount)],
-                [i, (i + 1), (i + matrix.rowAmount), (i + 1 + matrix.rowAmount)]
+                [(i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                [(i + matrix.dimensions[0]), (i - 1 + (2 * matrix.dimensions[0])), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                [(i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
+                [(i + 1), (i + 2), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],\
+                [i, (i + 2), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                [i, (i + 1), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
+                [(i + 1), (i + 2), (i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
+                [i, (i + 2), (i + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
+                [i, (i + 1), (i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0])]
             ]
 
             matrixRow = [item for row in matrix.matrix for item in row]
@@ -544,17 +544,17 @@ class Matrix:
 
     @staticmethod
     def __findDeterminant(matrix):
-        square = matrix.rowAmount - 2
+        square = matrix.dimensions[0] - 2
         Determinants = []
 
         for a in range(square):
             for b in range(square):
-                i = a + (b * matrix.rowAmount)
+                i = a + (b * matrix.dimensions[0])
 
                 LocalDeterminants = [
-                    [(i + 1 + matrix.rowAmount), (i + 2 + matrix.rowAmount), (i + 1 + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
-                    [(i + matrix.rowAmount), (i + 2 + matrix.rowAmount), (i + (2 * matrix.rowAmount)), (i + 2 + (2 * matrix.rowAmount))],
-                    [(i + matrix.rowAmount), (i + 1 + matrix.rowAmount), (i + (2 * matrix.rowAmount)), (i + 1 + (2 * matrix.rowAmount))]
+                    [(i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                    [(i + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                    [(i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))]
                 ]
 
                 flatMatrix = [item for row in matrix.matrix for item in row]
@@ -575,8 +575,7 @@ class Matrix:
 
         if self.__checkIfValid(matrix):
             self.matrix = matrix
-            self.rowAmount = len(matrix)
-            self.columnAmount = len(matrix[0])
+            self.dimensions = tuple(len(matrix), len(matrix[0]))
 
             self.__valid = True
         
@@ -596,7 +595,7 @@ class Matrix:
         determinant = self.__findDeterminant(matrix)
         if determinant == 0: raise ValueError('Cannot find inverse with a determinant of 0.')
 
-        Adjoint = [[row[i] for row in Minors.matrix] for i in range(Minors.rowAmount)]
+        Adjoint = [[row[i] for row in Minors.matrix] for i in range(Minors.dimensions[0])]
         Inverse = [[i / determinant for i in row] for row in Adjoint]
 
         return Matrix(*Inverse)
@@ -615,7 +614,7 @@ class Matrix:
 
     def __ConvertToMatrix(self, other):
         if type(other) in [WeightedNumber, Fraction, Decimal]: other = other.floatForm
-        if type(other) in [int, float]: return Matrix(*[[other for a in range(self.columnAmount)] for b in range(self.rowAmount)])
+        if type(other) in [int, float]: return Matrix(*[[other for a in range(self.dimensions[1])] for b in range(self.dimensions[0])])
     
 
 
@@ -635,7 +634,7 @@ class Matrix:
             return self.__add(other)
 
         elif type(other) == Matrix:
-            if self.rowAmount != other.rowAmount or self.columnAmount != other.columnAmount: return None
+            if self.dimensions[0] != other.dimensions[0] or self.dimensions[1] != other.dimensions[1]: return None
             return self.__add(other)
     
 
@@ -646,7 +645,7 @@ class Matrix:
             return self.__sub(other)
 
         elif type(other) == Matrix:
-            if self.rowAmount != other.rowAmount or self.columnAmount != other.columnAmount: return None
+            if self.dimensions[0] != other.dimensions[0] or self.dimensions[1] != other.dimensions[1]: return None
             return self.__sub(other)
     
 
@@ -657,7 +656,7 @@ class Matrix:
             return Matrix(*[[self.matrix[b][a] * other.matrix[b][a] for a in range(len(self.matrix[b]))] for b in range(len(self.matrix))])
 
         elif type(other) == Matrix:
-            if self.rowAmount != other.columnAmount: return None
+            if self.dimensions[0] != other.dimensions[1]: return None
             other = Matrix(*self.__invertList(other.matrix))
 
             NewMatrix = [[sum([(self.matrix[a][b] * other.matrix[c][b]) for b in range(len(self.matrix[a]))]) for a in range(len(self.matrix))] for c in range(len(other.matrix))]
@@ -667,11 +666,11 @@ class Matrix:
 
     def __truediv__(self, other):
         if type(other) in [int, float, Fraction, WeightedNumber, Decimal]: other = self.__ConvertToMatrix(other)
-        if other.rowAmount != other.columnAmount: raise ValueError('Matrix must be square.')
-        if self.rowAmount != self.columnAmount: raise ValueError('Matrix must be square.')
-        if max(self.rowAmount, self.columnAmount, other.rowAmount, other.columnAmount) > 3: raise ValueError('Due to limitations, only 3x3 Matrices are allowed in division.')
+        if other.dimensions[0] != other.dimensions[1]: raise ValueError('Matrix must be square.')
+        if self.dimensions[0] != self.dimensions[1]: raise ValueError('Matrix must be square.')
+        if max(self.dimensions[0], self.dimensions[1], other.dimensions[0], other.dimensions[1]) > 3: raise ValueError('Due to limitations, only 3x3 Matrices are allowed in division.')
 
-        if self.rowAmount < 3: return self.__mul__(self.__findSmallInverse(other))
+        if self.dimensions[0] < 3: return self.__mul__(self.__findSmallInverse(other))
         return self.__mul__(self.__findInverse(other))
     
 
