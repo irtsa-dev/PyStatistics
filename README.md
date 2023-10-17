@@ -144,6 +144,36 @@ print(fraction.simplify())
 ```
 <br />
 <br />
+
+### Matrix
+```py
+matrix = Matrix([1, 3, 2], [1, 3, 4], [7, 3, 1])
+
+# A Matrix has is comprised of columns and rows, each row of the column is a separate argument in the form of a list.
+# Note that Matrix division currently only supports Matrices of 2x2 or 3x3.
+```
+```py
+matrix = Matrix([1, 3, 2], [1, 3, 4], [7, 3, 1])
+print(matrix)
+# Printing the Matrix as is will print off the matrix in a grid format.
+# Result:
+# 1 3 2
+# 1 3 4
+# 7 3 1
+```
+<br />
+
+The **Matrix** class also has the following properties:
+```py
+matrix.matrix
+# Corresponding number and weight of the number in their given form.
+
+matrix.rowAmount
+matrix.columnAmount
+# Will return the number of rows / columns in the matrix.
+```
+<br />
+<br />
 <br />
 <br />
 
@@ -199,6 +229,31 @@ print(weightedNumberA * weightedNumberB)
 print(weightedNumberA / weightedNumberB)
 # Result: 0.42857142857142855
 ```
+```py
+matrixA = Matrix([10, 9], [8, 8])
+matrixB = Matrix([2, 1], [3, 2])
+
+
+print(matrixA + matrixB)
+# Result:
+# 12 10
+# 11 10
+
+print(matrixA - matrixB)
+# Result:
+# 8 8
+# 5 6
+
+print(matrixA * matrixB)
+# Result:
+# 47 28
+# 40 24
+
+print(matrixA / matrixB)
+# Result:
+# 11.0 8.0
+# 8.0 8.0
+```
 When performing mixed class arithmetic operations, the preceding class type will be the output type.
 ```py
 fraction = Fraction(1, 3)
@@ -233,6 +288,34 @@ print(fraction - 1)
 
 print(weightedNumber + 3)
 # Result: 33.0
+```
+Matrices are supported in mixed class arithmetic operations, though the Matrix has to be the proceeding type and the arithmetic will be applied to each value in the Matrix.
+```py
+matrix = Matrix([1, 3], [4, 9])
+fraction = Fraction(1, 2)
+decimal = Decimal(1, 45)
+weightedNumber = WeightedNumber(100, 30)
+
+
+print(matrix + decimal)
+# Result:
+# 2.45 4.45
+# 5.45 10.45
+
+print(matrix - fraction)
+# Result:
+# 0.5 2.5
+# 3.5 8.5
+
+print(matrix * weightedNumber)
+# Result:
+# 30.0 90.0
+# 120.0 270.0
+
+print(matrix - 3)
+# Result:
+# -2 0
+# 1 6
 ```
 <br />
 <br />
