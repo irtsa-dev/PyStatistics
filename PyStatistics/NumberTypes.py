@@ -522,7 +522,7 @@ class Matrix:
                 [(i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
                 [(i + matrix.dimensions[0]), (i - 1 + (2 * matrix.dimensions[0])), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
                 [(i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
-                [(i + 1), (i + 2), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],\
+                [(i + 1), (i + 2), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
                 [i, (i + 2), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
                 [i, (i + 1), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
                 [(i + 1), (i + 2), (i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
