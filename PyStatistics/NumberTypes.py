@@ -511,35 +511,35 @@ class Matrix:
 
     @staticmethod
     def __findCofactor(matrix):
-    square = matrix.dimensions[0] - 2
-    Minors = []
+      square = matrix.dimensions[0] - 2
+      Minors = []
 
-    for a in range(square):
-        for b in range(square):
-            i = a + (b * matrix.dimensions[0])
-                    
-            dpMatrices = [
-                [(i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
-                [(i + matrix.dimensions[0]), (i - 1 + (2 * matrix.dimensions[0])), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
-                [(i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
-                [(i + 1), (i + 2), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
-                [i, (i + 2), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
-                [i, (i + 1), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
-                [(i + 1), (i + 2), (i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
-                [i, (i + 2), (i + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
-                [i, (i + 1), (i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0])]
-            ]
+      for a in range(square):
+          for b in range(square):
+              i = a + (b * matrix.dimensions[0])
 
-            matrixRow = [item for row in matrix.matrix for item in row]
+              dpMatrices = [
+                  [(i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0]), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                  [(i + matrix.dimensions[0]), (i - 1 + (2 * matrix.dimensions[0])), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                  [(i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0]), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
+                  [(i + 1), (i + 2), (i + 1 + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                  [i, (i + 2), (i + (2 * matrix.dimensions[0])), (i + 2 + (2 * matrix.dimensions[0]))],
+                  [i, (i + 1), (i + (2 * matrix.dimensions[0])), (i + 1 + (2 * matrix.dimensions[0]))],
+                  [(i + 1), (i + 2), (i + 1 + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
+                  [i, (i + 2), (i + matrix.dimensions[0]), (i + 2 + matrix.dimensions[0])],
+                  [i, (i + 1), (i + matrix.dimensions[0]), (i + 1 + matrix.dimensions[0])]
+              ]
 
-            dpMatrices = [[matrixRow[item] for item in row] for row in dpMatrices]
-            dpMatrix = [(m[0] * m[3] - m[1] * m[2]) for m in dpMatrices]
-            dpMatrix = [(-1) ** (m) * dpMatrix[m] for m in range(len(dpMatrices))]
-            Minors.append(dpMatrix)
-    
-    Minors = [Minors[0][i:i+square+2] for i in range(0, len(Minors[0]), square + 2)]
-    input(Minors)
-    return Matrix(*Minors)
+              matrixRow = [item for row in matrix.matrix for item in row]
+
+              dpMatrices = [[matrixRow[item] for item in row] for row in dpMatrices]
+              dpMatrix = [(m[0] * m[3] - m[1] * m[2]) for m in dpMatrices]
+              dpMatrix = [(-1) ** (m) * dpMatrix[m] for m in range(len(dpMatrices))]
+              Minors.append(dpMatrix)
+
+      Minors = [Minors[0][i:i+square+2] for i in range(0, len(Minors[0]), square + 2)]
+      input(Minors)
+      return Matrix(*Minors)
 
 
     @staticmethod

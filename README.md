@@ -1,5 +1,18 @@
+![PyPI](https://img.shields.io/pypi/v/idev-pystatistics) ![Python](https://img.shields.io/pypi/pyversions/idev-pystatistics)
 # **PyStatistics**
 A [**python**](https://www.python.org) collection of classes and functions to help with numbers along with collections of numbers i.e., **statistics**.
+<br />
+<br />
+​<br />
+# Installation
+With `git` [GitHub](https://github.com):
+```
+git clone https://github.com/IrtsaDevelopment/PyStatistics.git
+```
+With `pip` [PyPi](https://pypi.org/project/idev-pystatistics/)
+```
+pip install idev-pystatistics
+```
 <br />
 <br />
 <br />
@@ -543,14 +556,3 @@ print(PointMultiplicationInterpolation(Data))
 <br />
 # Additional Notes
 Accuracy may be lost at times when converting between number formats.
-
-​
-<br />
-<br />
-​<br />
-<br />
-<br />
-# Installation
-```sh
-git clone https://github.com/IrtsaDevelopment/PyStatistics.git
-```
