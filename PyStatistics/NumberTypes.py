@@ -76,6 +76,12 @@ class WeightedNumber:
     def __convertToFloat(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: return other.floatForm
         if type(other) in [float, int]: return float(other)
+
+
+
+    def __lt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm < other
     
 
 
@@ -209,6 +215,12 @@ class Fraction:
         if type(other) == Decimal: other = self.__numberToFraction(other.stringForm)
         if type(other) == WeightedNumber: other = self.__numberToFraction(other.floatForm)
         if type(other) == Fraction: return other
+
+
+
+    def __lt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm < other
     
 
 
@@ -307,6 +319,12 @@ class Decimal:
         if type(other) == float: return Decimal(str(other).split('.')[0], str(other).split('.')[1])
         if type(other) == int: return Decimal(str(int(self.integeral) + int(other)), self.fractional)
         if type(other) == Decimal: return other
+
+
+
+    def __lt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm < other
     
 
 
