@@ -79,9 +79,37 @@ class WeightedNumber:
 
 
 
+    def __eq__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm == other
+
+
+    def __ne__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm != other
+
+
+
     def __lt__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
         return self.floatForm < other
+
+
+
+    def __gt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+            return self.floatForm > other
+
+
+    def __le__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm <= other
+
+
+
+    def __ge__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+            return self.floatForm >= other
     
 
 
@@ -218,9 +246,37 @@ class Fraction:
 
 
 
+    def __eq__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm == other
+
+
+    def __ne__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm != other
+
+
+
     def __lt__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
         return self.floatForm < other
+
+
+
+    def __gt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+            return self.floatForm > other
+
+
+    def __le__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm <= other
+
+
+
+    def __ge__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+            return self.floatForm >= other
     
 
 
@@ -322,9 +378,37 @@ class Decimal:
 
 
 
+    def __eq__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm == other
+
+
+    def __ne__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm != other
+
+
+
     def __lt__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
         return self.floatForm < other
+
+
+
+    def __gt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+            return self.floatForm > other
+
+
+    def __le__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm <= other
+
+
+
+    def __ge__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+            return self.floatForm >= other
     
 
 
