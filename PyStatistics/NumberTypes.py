@@ -837,6 +837,8 @@ class Matrix:
     def __ceil__(self): return Matrix(*[[ceil(i) for i in row] for row in self.matrix])
 
     def __floor__(self): return Matrix(*[[floor(i) for i in row] for row in self.matrix])
+
+    def __pow__(self, n: int): return Matrix(*[[pow(i, n) for i in row] for row in self.matrix])
         
     def __iadd__(self, other): return self.__add__(other)
     
