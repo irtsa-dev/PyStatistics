@@ -821,9 +821,17 @@ class Matrix:
 
         if self.dimensions[0] < 3: return self.__mul__(self.__findSmallInverse(other))
         return self.__mul__(self.__findInverse(other))
+
     
 
+    def __abs__(self): return Matrix(*[[abs(i) for i in row] for row in self.matrix])
 
+    def __round__(self, n: int = None): return Matrix(*[[round(i, n) for i in row] for row in self.matrix])
+
+    def __ceil__(self): return Matrix(*[[ceil(i) for i in row] for row in self.matrix])
+
+    def __floor__(self): return Matrix(*[[floor(i) for i in row] for row in self.matrix])
+        
     def __iadd__(self, other): return self.__add__(other)
     
     def __isub__(self, other): return self.__sub__(other)
