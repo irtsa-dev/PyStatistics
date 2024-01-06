@@ -152,11 +152,11 @@ class WeightedNumber:
 
     def __abs__(self): return abs(self.floatForm)
 
-    def __round__(self, n): return round(self.floatForm, n)
+    def __round__(self, n: int = None): return round(self.floatForm, n)
 
     def __floor__(self): return floor(self.floatForm)
 
-    def __ceil(self): return ceil(self.floatForm)
+    def __ceil__(self): return ceil(self.floatForm)
 
     def __int__(self): return int(self.floatForm)
 
@@ -351,11 +351,11 @@ class Fraction:
 
     def __abs__(self): return abs(self.floatForm)
 
-    def __round__(self, n): return round(self.floatForm, n)
+    def __round__(self, n: int = None): return round(self.floatForm, n)
 
     def __floor__(self): return floor(self.floatForm)
 
-    def __ceil(self): return ceil(self.floatForm)
+    def __ceil__(self): return ceil(self.floatForm)
 
     def __int__(self): return int(self.floatForm)
 
@@ -624,11 +624,11 @@ class Decimal:
 
     def __abs__(self): return abs(self.floatForm)
 
-    def __round__(self, n): return round(self.floatForm, n)
+    def __round__(self, n: int = None): return round(self.floatForm, n)
 
     def __floor__(self): return floor(self.floatForm)
 
-    def __ceil(self): return ceil(self.floatForm)
+    def __ceil__(self): return ceil(self.floatForm)
 
     def __int__(self): return int(self.floatForm)
 
@@ -689,7 +689,6 @@ class Matrix:
               Minors.append(dpMatrix)
 
       Minors = [Minors[0][i:i+square+2] for i in range(0, len(Minors[0]), square + 2)]
-      input(Minors)
       return Matrix(*Minors)
 
 
@@ -726,7 +725,7 @@ class Matrix:
 
         if self.__checkIfValid(matrix):
             self.matrix = matrix
-            self.dimensions = tuple(len(matrix), len(matrix[0]))
+            self.dimensions = tuple((len(matrix), len(matrix[0])))
 
             self.__valid = True
         
@@ -741,7 +740,6 @@ class Matrix:
     
     def __findInverse(self, matrix):
         Minors = self.__findCofactor(matrix)
-        input(Minors)
 
         determinant = self.__findDeterminant(matrix)
         if determinant == 0: raise ValueError('Cannot find inverse with a determinant of 0.')
