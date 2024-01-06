@@ -149,7 +149,29 @@ class WeightedNumber:
 
     def __rtruediv__(self, other): return self.__truediv__(other)
 
+    def __abs__(self): return abs(self.floatForm)
+
+    def __round__(self, n): return round(self.floatForm, n)
+
+    def __floor__(self): return floor(self.floatForm)
+
+    def __ceil(self): return ceil(self.floatForm)
+
+    def __int__(self): return int(self.floatForm)
+
+    def __long__(self): return long(self.floatForm)
+
+    def __float__(self): return float(self.floatForm)
+
+    def __complex__(self): return complex(self.floatForm)
+
+    def __oct__(self): return oct(int(self.__round__))
+
+    def __hex__(self): return hex(int(self.__round__))
+
     def __repr__(self): return str(self.number) + ' - ' + self.percentForm
+
+    def __nonzero__(self): return self.floatForm != 0
 
 
 
@@ -332,7 +354,29 @@ class Fraction:
 
     def __rtruediv__(self, other): return self.__truediv__(other)
 
+    def __abs__(self): return abs(self.floatForm)
+
+    def __round__(self, n): return round(self.floatForm, n)
+
+    def __floor__(self): return floor(self.floatForm)
+
+    def __ceil(self): return ceil(self.floatForm)
+
+    def __int__(self): return int(self.floatForm)
+
+    def __long__(self): return long(self.floatForm)
+
+    def __float__(self): return float(self.floatForm)
+
+    def __complex__(self): return complex(self.floatForm)
+
+    def __oct__(self): return oct(int(self.__round__))
+
+    def __hex__(self): return hex(int(self.__round__))
+
     def __repr__(self): return str(self.simplify().numerator) + '/' + str(self.simplify().denominator)
+
+    def __nonzero__(self): return self.floatForm != 0
 
 
 
@@ -589,7 +633,29 @@ class Decimal:
 
     def __rtruediv__(self, other): return self.__truediv__(other)
 
+    def __abs__(self): return abs(self.floatForm)
+
+    def __round__(self, n): return round(self.floatForm, n)
+
+    def __floor__(self): return floor(self.floatForm)
+
+    def __ceil(self): return ceil(self.floatForm)
+
+    def __int__(self): return int(self.floatForm)
+
+    def __long__(self): return long(self.floatForm)
+
+    def __float__(self): return float(self.floatForm)
+
+    def __complex__(self): return complex(self.floatForm)
+
+    def __oct__(self): return oct(int(self.__round__))
+
+    def __hex__(self): return hex(int(self.__round__))
+
     def __repr__(self): return str(self.integeral) + '.' + str(self.fractional)
+
+    def __nonzero__(self): return self.floatForm != 0
 
 
 
