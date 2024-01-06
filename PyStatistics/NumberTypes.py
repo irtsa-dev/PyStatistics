@@ -158,6 +158,8 @@ class WeightedNumber:
 
     def __ceil__(self): return ceil(self.floatForm)
 
+    def __pow__(self, n: int): return pow(self.floatForm, n)
+
     def __int__(self): return int(self.floatForm)
 
     def __float__(self): return float(self.floatForm)
@@ -356,6 +358,8 @@ class Fraction:
     def __floor__(self): return floor(self.floatForm)
 
     def __ceil__(self): return ceil(self.floatForm)
+
+    def __pow__(self, n: int): return pow(self.floatForm, n)
 
     def __int__(self): return int(self.floatForm)
 
@@ -629,6 +633,8 @@ class Decimal:
     def __floor__(self): return floor(self.floatForm)
 
     def __ceil__(self): return ceil(self.floatForm)
+
+    def __pow__(self, n: int): return pow(self.floatForm, n)
 
     def __int__(self): return int(self.floatForm)
 
