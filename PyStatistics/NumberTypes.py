@@ -165,10 +165,6 @@ class WeightedNumber:
 
     def __complex__(self): return complex(self.floatForm)
 
-    def __oct__(self): return oct(int(self.__round__))
-
-    def __hex__(self): return hex(int(self.__round__))
-
     def __repr__(self): return str(self.number) + ' - ' + self.percentForm
 
     def __nonzero__(self): return self.floatForm != 0
@@ -369,10 +365,6 @@ class Fraction:
     def __float__(self): return float(self.floatForm)
 
     def __complex__(self): return complex(self.floatForm)
-
-    def __oct__(self): return oct(int(self.__round__))
-
-    def __hex__(self): return hex(int(self.__round__))
 
     def __repr__(self): return str(self.simplify().numerator) + '/' + str(self.simplify().denominator)
 
@@ -648,10 +640,6 @@ class Decimal:
     def __float__(self): return float(self.floatForm)
 
     def __complex__(self): return complex(self.floatForm)
-
-    def __oct__(self): return oct(int(self.__round__))
-
-    def __hex__(self): return hex(int(self.__round__))
 
     def __repr__(self): return str(self.integeral) + '.' + str(self.fractional)
 
