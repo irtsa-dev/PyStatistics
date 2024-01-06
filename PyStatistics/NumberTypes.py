@@ -7,6 +7,7 @@
 
 #Imports
 from Factoring import *
+from math import ceil, floor
 
 
 
@@ -98,7 +99,7 @@ class WeightedNumber:
 
     def __gt__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
-            return self.floatForm > other
+        return self.floatForm > other
 
 
     def __le__(self, other):
@@ -109,7 +110,7 @@ class WeightedNumber:
 
     def __ge__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
-            return self.floatForm >= other
+        return self.floatForm >= other
     
 
 
@@ -158,8 +159,6 @@ class WeightedNumber:
     def __ceil(self): return ceil(self.floatForm)
 
     def __int__(self): return int(self.floatForm)
-
-    def __long__(self): return long(self.floatForm)
 
     def __float__(self): return float(self.floatForm)
 
@@ -283,7 +282,7 @@ class Fraction:
 
     def __gt__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
-            return self.floatForm > other
+        return self.floatForm > other
 
 
     def __le__(self, other):
@@ -294,7 +293,7 @@ class Fraction:
 
     def __ge__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
-            return self.floatForm >= other
+        return self.floatForm >= other
     
 
 
@@ -359,8 +358,6 @@ class Fraction:
     def __ceil(self): return ceil(self.floatForm)
 
     def __int__(self): return int(self.floatForm)
-
-    def __long__(self): return long(self.floatForm)
 
     def __float__(self): return float(self.floatForm)
 
@@ -433,7 +430,7 @@ class Decimal:
 
     def __gt__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
-            return self.floatForm > other
+        return self.floatForm > other
 
 
     def __le__(self, other):
@@ -444,7 +441,7 @@ class Decimal:
 
     def __ge__(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
-            return self.floatForm >= other
+        return self.floatForm >= other
     
 
 
@@ -634,8 +631,6 @@ class Decimal:
     def __ceil(self): return ceil(self.floatForm)
 
     def __int__(self): return int(self.floatForm)
-
-    def __long__(self): return long(self.floatForm)
 
     def __float__(self): return float(self.floatForm)
 
