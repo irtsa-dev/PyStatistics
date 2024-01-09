@@ -7,6 +7,7 @@
 
 #Imports
 from Factoring import *
+from math import ceil, floor
 
 
 
@@ -76,6 +77,40 @@ class WeightedNumber:
     def __convertToFloat(self, other):
         if type(other) in [WeightedNumber, Decimal, Fraction]: return other.floatForm
         if type(other) in [float, int]: return float(other)
+
+
+
+    def __eq__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm == other
+
+
+    def __ne__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm != other
+
+
+
+    def __lt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm < other
+
+
+
+    def __gt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm > other
+
+
+    def __le__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm <= other
+
+
+
+    def __ge__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm >= other
     
 
 
@@ -115,7 +150,25 @@ class WeightedNumber:
 
     def __rtruediv__(self, other): return self.__truediv__(other)
 
+    def __abs__(self): return abs(self.floatForm)
+
+    def __round__(self, n: int = None): return round(self.floatForm, n)
+
+    def __floor__(self): return floor(self.floatForm)
+
+    def __ceil__(self): return ceil(self.floatForm)
+
+    def __pow__(self, n: int): return pow(self.floatForm, n)
+
+    def __int__(self): return int(self.floatForm)
+
+    def __float__(self): return float(self.floatForm)
+
+    def __complex__(self): return complex(self.floatForm)
+
     def __repr__(self): return str(self.number) + ' - ' + self.percentForm
+
+    def __nonzero__(self): return self.floatForm != 0
 
 
 
@@ -209,6 +262,40 @@ class Fraction:
         if type(other) == Decimal: other = self.__numberToFraction(other.stringForm)
         if type(other) == WeightedNumber: other = self.__numberToFraction(other.floatForm)
         if type(other) == Fraction: return other
+
+
+
+    def __eq__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm == other
+
+
+    def __ne__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm != other
+
+
+
+    def __lt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm < other
+
+
+
+    def __gt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm > other
+
+
+    def __le__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm <= other
+
+
+
+    def __ge__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm >= other
     
 
 
@@ -264,7 +351,25 @@ class Fraction:
 
     def __rtruediv__(self, other): return self.__truediv__(other)
 
+    def __abs__(self): return abs(self.floatForm)
+
+    def __round__(self, n: int = None): return round(self.floatForm, n)
+
+    def __floor__(self): return floor(self.floatForm)
+
+    def __ceil__(self): return ceil(self.floatForm)
+
+    def __pow__(self, n: int): return pow(self.floatForm, n)
+
+    def __int__(self): return int(self.floatForm)
+
+    def __float__(self): return float(self.floatForm)
+
+    def __complex__(self): return complex(self.floatForm)
+
     def __repr__(self): return str(self.simplify().numerator) + '/' + str(self.simplify().denominator)
+
+    def __nonzero__(self): return self.floatForm != 0
 
 
 
@@ -307,6 +412,40 @@ class Decimal:
         if type(other) == float: return Decimal(str(other).split('.')[0], str(other).split('.')[1])
         if type(other) == int: return Decimal(str(int(self.integeral) + int(other)), self.fractional)
         if type(other) == Decimal: return other
+
+
+
+    def __eq__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm == other
+
+
+    def __ne__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm != other
+
+
+
+    def __lt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm < other
+
+
+
+    def __gt__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm > other
+
+
+    def __le__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm <= other
+
+
+
+    def __ge__(self, other):
+        if type(other) in [WeightedNumber, Decimal, Fraction]: other = other.floatForm
+        return self.floatForm >= other
     
 
 
@@ -487,7 +626,25 @@ class Decimal:
 
     def __rtruediv__(self, other): return self.__truediv__(other)
 
+    def __abs__(self): return abs(self.floatForm)
+
+    def __round__(self, n: int = None): return round(self.floatForm, n)
+
+    def __floor__(self): return floor(self.floatForm)
+
+    def __ceil__(self): return ceil(self.floatForm)
+
+    def __pow__(self, n: int): return pow(self.floatForm, n)
+
+    def __int__(self): return int(self.floatForm)
+
+    def __float__(self): return float(self.floatForm)
+
+    def __complex__(self): return complex(self.floatForm)
+
     def __repr__(self): return str(self.integeral) + '.' + str(self.fractional)
+
+    def __nonzero__(self): return self.floatForm != 0
 
 
 
@@ -538,7 +695,6 @@ class Matrix:
               Minors.append(dpMatrix)
 
       Minors = [Minors[0][i:i+square+2] for i in range(0, len(Minors[0]), square + 2)]
-      input(Minors)
       return Matrix(*Minors)
 
 
@@ -575,7 +731,7 @@ class Matrix:
 
         if self.__checkIfValid(matrix):
             self.matrix = matrix
-            self.dimensions = tuple(len(matrix), len(matrix[0]))
+            self.dimensions = tuple((len(matrix), len(matrix[0])))
 
             self.__valid = True
         
@@ -590,7 +746,6 @@ class Matrix:
     
     def __findInverse(self, matrix):
         Minors = self.__findCofactor(matrix)
-        input(Minors)
 
         determinant = self.__findDeterminant(matrix)
         if determinant == 0: raise ValueError('Cannot find inverse with a determinant of 0.')
@@ -672,9 +827,19 @@ class Matrix:
 
         if self.dimensions[0] < 3: return self.__mul__(self.__findSmallInverse(other))
         return self.__mul__(self.__findInverse(other))
+
     
 
+    def __abs__(self): return Matrix(*[[abs(i) for i in row] for row in self.matrix])
 
+    def __round__(self, n: int = None): return Matrix(*[[round(i, n) for i in row] for row in self.matrix])
+
+    def __ceil__(self): return Matrix(*[[ceil(i) for i in row] for row in self.matrix])
+
+    def __floor__(self): return Matrix(*[[floor(i) for i in row] for row in self.matrix])
+
+    def __pow__(self, n: int): return Matrix(*[[pow(i, n) for i in row] for row in self.matrix])
+        
     def __iadd__(self, other): return self.__add__(other)
     
     def __isub__(self, other): return self.__sub__(other)
