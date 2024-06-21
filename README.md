@@ -7,7 +7,7 @@ A [**python**](https://www.python.org) collection of classes and functions to he
 # Installation
 With `git` [GitHub](https://github.com):
 ```
-git clone https://github.com/IrtsaDevelopment/PyStatistics.git
+git clone https://github.com/irtsa-dev/PyStatistics.git
 ```
 With `pip` [PyPi](https://pypi.org/project/idev-pystatistics/)
 ```
